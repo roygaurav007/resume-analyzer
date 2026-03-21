@@ -52,13 +52,11 @@ ResumeAI analyzes your PDF resume using **LLaMA 3.3 70B** (via Groq) and gives y
 
 <div align="center">
 
-| Login Page | Dashboard | Results |
-|-----------|-----------|---------|
-| Dark/Light theme toggle | Score history chart | Full AI breakdown |
-| Guest mode (no signup) | Scan progress tracking | Before/after bullets |
+| signup | Dashboard | Results |
+|-------|-----------|---------|
+| ![signup](screenshots/signup.png) | ![Dashboard](screenshots/dashboard.png) | ![Results](screenshots/results.png) |
 
 </div>
-
 <br/>
 
 ## 🛠️ Tech Stack

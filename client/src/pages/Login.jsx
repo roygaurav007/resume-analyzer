@@ -55,7 +55,7 @@ export default function Login() {
         @keyframes scan{0%{top:0;opacity:0.7}100%{top:100%;opacity:0}}
         @keyframes lp{0%{opacity:0;transform:translateY(18px) scale(0.8)}60%{transform:translateY(-3px) scale(1.04)}100%{opacity:1;transform:translateY(0) scale(1)}}
         @keyframes gp{0%,100%{border-color:rgba(251,191,36,0.35)}50%{border-color:rgba(251,191,36,0.7)}}
-        .inp{width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid var(--inp-border);font-size:15px;outline:none;background:var(--inp-bg);color:var(--text);box-sizing:border-box;transition:all 0.25s;font-family:inherit}
+        .inp{width:100%;padding:13px 14px;border-radius:10px;border:1.5px solid var(--inp-border);font-size:15px;outline:none;background:var(--inp-bg);color:var(--text);box-sizing:border-box;transition:all 0.25s;font-family:inherit}
         .inp::placeholder{color:var(--text4)}
         .inp:focus{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,0.12)}
         .inp:-webkit-autofill{-webkit-box-shadow:0 0 0 1000px var(--inp-bg) inset !important;-webkit-text-fill-color:var(--text) !important}
@@ -65,18 +65,21 @@ export default function Login() {
         .bguest{width:100%;padding:14px 16px;border-radius:11px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;background:rgba(251,191,36,0.07);border:1.5px solid rgba(251,191,36,0.35);transition:all 0.3s;animation:gp 2.5s ease-in-out infinite;display:flex;align-items:center;justify-content:center;gap:10px}
         .bguest:hover{background:rgba(251,191,36,0.14);border-color:rgba(251,191,36,0.8);transform:translateY(-2px)}
         .bguest:disabled{opacity:0.5;cursor:not-allowed;transform:none;animation:none}
-        .frow{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
-        .frow:last-child{border-bottom:none}
-        /* Desktop: side by side */
+        /* Desktop layout */
         .login-left{display:flex;flex:1;position:relative;flex-direction:column;justify-content:center;padding:60px 64px;overflow:hidden}
-        .login-right{width:440px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;padding:0 44px;background:var(--card-bg);border-left:1px solid var(--border);backdrop-filter:blur(20px);transition:background 0.3s;animation:sr 0.7s ease both}
-        /* Mobile: single column, no side panel */
+        .login-right{width:440px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;padding:48px 44px;background:var(--card-bg);border-left:1px solid var(--border);backdrop-filter:blur(20px);transition:background 0.3s;animation:sr 0.7s ease both;overflow-y:auto}
+        /* Mobile: hide left panel, right panel full width */
+        .mob-only{display:none}
         @media(max-width:768px){
           .login-left{display:none !important}
-          .login-right{width:100% !important;padding:40px 24px !important;border-left:none !important;justify-content:flex-start !important;padding-top:48px !important;animation:none !important}
+          .login-right{width:100% !important;padding:40px 24px 48px !important;border-left:none !important;animation:none !important}
+          .mob-only{display:block}
           .mob-logo{display:flex !important}
         }
         .mob-logo{display:none;align-items:center;gap:10px;margin-bottom:32px}
+        .mob-features{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:18px;margin-top:28px}
+        .mob-feat-row{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--border)}
+        .mob-feat-row:last-child{border-bottom:none}
       `}</style>
 
       {/* LEFT PANEL — desktop only */}
@@ -113,7 +116,7 @@ export default function Login() {
           </p>
           <div>
             {[{icon:'🎯',text:'ATS score with 4-point breakdown'},{icon:'✍️',text:'Before/after bullet rewrites with real metrics'},{icon:'💡',text:'Quick wins you can apply in 5 minutes'}].map((f,i)=>(
-              <div key={i} className="frow" style={{animation:`fu 0.5s ease ${0.5+i*0.1}s both`}}>
+              <div key={i} style={{display:'flex',alignItems:'center',gap:'12px',padding:'10px 0',borderBottom:'1px solid var(--border)',animation:`fu 0.5s ease ${0.5+i*0.1}s both`}}>
                 <span style={{fontSize:'20px',flexShrink:0}}>{f.icon}</span>
                 <span style={{color:'var(--text2)',fontSize:'16px'}}>{f.text}</span>
               </div>
@@ -122,9 +125,10 @@ export default function Login() {
         </div>
       </div>
 
-      {/* RIGHT PANEL — full page on mobile */}
+      {/* RIGHT PANEL */}
       <div className="login-right">
-        {/* Logo shown only on mobile */}
+
+        {/* Logo — mobile only */}
         <div className="mob-logo">
           <div style={{width:'38px',height:'38px',background:'linear-gradient(135deg,#2563eb,#7c3aed)',borderRadius:'11px',display:'flex',alignItems:'center',justifyContent:'center'}}>
             <span style={{color:'white',fontSize:'18px',fontWeight:'900'}}>R</span>
@@ -136,42 +140,70 @@ export default function Login() {
           </div>
         </div>
 
-        <div style={{animation:'fu 0.5s ease 0.1s both',marginBottom:'28px'}}>
-          <h2 style={{fontSize:'28px',fontWeight:'900',color:'var(--text)',marginBottom:'6px'}}>Welcome back</h2>
-          <p style={{color:'var(--text3)',fontSize:'15px',margin:0}}>Sign in to continue your journey</p>
+        {/* Hero text — mobile only */}
+        <div className="mob-only" style={{marginBottom:'24px'}}>
+          <h1 style={{fontSize:'28px',fontWeight:'900',color:'var(--text)',lineHeight:1.15,marginBottom:'8px',letterSpacing:'-0.5px'}}>
+            Land more interviews<br/>
+            <span style={{background:'linear-gradient(135deg,#60a5fa,#a78bfa)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>with AI feedback</span>
+          </h1>
+          <p style={{color:'var(--text3)',fontSize:'14px',lineHeight:1.7,margin:0}}>
+            Upload your resume. Get ATS score, specific fixes, and rewritten bullets in 20 seconds.
+          </p>
+        </div>
+
+        {/* Form */}
+        <div style={{animation:'fu 0.5s ease 0.1s both',marginBottom:'22px'}}>
+          <h2 style={{fontSize:'22px',fontWeight:'900',color:'var(--text)',marginBottom:'5px'}}>Welcome back</h2>
+          <p style={{color:'var(--text3)',fontSize:'14px',margin:0}}>Sign in to continue your journey</p>
         </div>
         {error&&<div style={{background:'rgba(239,68,68,0.1)',border:'1px solid rgba(239,68,68,0.25)',color:dark?'#f87171':'#dc2626',borderRadius:'10px',padding:'12px 16px',fontSize:'14px',marginBottom:'18px'}}>{error}</div>}
         <form onSubmit={onSubmit}>
-          <div style={{marginBottom:'16px',animation:'fu 0.5s ease 0.2s both'}}>
-            <label style={{display:'block',fontSize:'12px',fontWeight:'700',color:'var(--text4)',marginBottom:'8px',textTransform:'uppercase',letterSpacing:'0.08em'}}>Email</label>
+          <div style={{marginBottom:'14px',animation:'fu 0.5s ease 0.2s both'}}>
+            <label style={{display:'block',fontSize:'11px',fontWeight:'700',color:'var(--text4)',marginBottom:'7px',textTransform:'uppercase',letterSpacing:'0.08em'}}>Email</label>
             <input type="email" name="email" value={form.email} onChange={onChange} required placeholder="you@example.com" className="inp"/>
           </div>
-          <div style={{marginBottom:'24px',animation:'fu 0.5s ease 0.28s both'}}>
-            <label style={{display:'block',fontSize:'12px',fontWeight:'700',color:'var(--text4)',marginBottom:'8px',textTransform:'uppercase',letterSpacing:'0.08em'}}>Password</label>
+          <div style={{marginBottom:'22px',animation:'fu 0.5s ease 0.28s both'}}>
+            <label style={{display:'block',fontSize:'11px',fontWeight:'700',color:'var(--text4)',marginBottom:'7px',textTransform:'uppercase',letterSpacing:'0.08em'}}>Password</label>
             <input type="password" name="password" value={form.password} onChange={onChange} required placeholder="••••••••" className="inp"/>
           </div>
-          <div style={{animation:'fu 0.5s ease 0.35s both',marginBottom:'14px'}}>
+          <div style={{animation:'fu 0.5s ease 0.35s both',marginBottom:'12px'}}>
             <button type="submit" disabled={loading} className="bmain">{loading?'Signing in...':'Sign in →'}</button>
           </div>
         </form>
-        <div style={{display:'flex',alignItems:'center',gap:'12px',margin:'8px 0 14px',animation:'fu 0.5s ease 0.42s both'}}>
+        <div style={{display:'flex',alignItems:'center',gap:'12px',margin:'8px 0 12px',animation:'fu 0.5s ease 0.42s both'}}>
           <div style={{flex:1,height:'1px',background:'var(--border)'}}/>
           <span style={{color:'var(--text4)',fontSize:'11px',fontWeight:'600',letterSpacing:'0.07em'}}>OR TRY FOR FREE</span>
           <div style={{flex:1,height:'1px',background:'var(--border)'}}/>
         </div>
-        <div style={{animation:'fu 0.5s ease 0.48s both',marginBottom:'28px'}}>
+        <div style={{animation:'fu 0.5s ease 0.48s both',marginBottom:'22px'}}>
           <button onClick={onGuest} disabled={gLoading} className="bguest">
             <span style={{fontSize:'20px'}}>👤</span>
             <div style={{textAlign:'left'}}>
               <p style={{margin:0,fontSize:'15px',fontWeight:'700',color:dark?'#fbbf24':'#d97706'}}>{gLoading?'Setting up...':'Continue as Guest'}</p>
-              <p style={{margin:0,fontSize:'13px',color:'var(--text3)'}}>No signup · 5 free scans per hour</p>
+              <p style={{margin:0,fontSize:'12px',color:'var(--text3)'}}>No signup · 5 free scans per hour</p>
             </div>
             {!gLoading&&<span style={{marginLeft:'auto',color:'var(--text4)',fontSize:'18px'}}>→</span>}
           </button>
         </div>
-        <p style={{textAlign:'center',fontSize:'15px',color:'var(--text4)',margin:0,animation:'fu 0.5s ease 0.54s both'}}>
+        <p style={{textAlign:'center',fontSize:'14px',color:'var(--text4)',margin:0,animation:'fu 0.5s ease 0.54s both'}}>
           No account?{' '}<Link to="/register" style={{color:'#3b82f6',fontWeight:'700',textDecoration:'none'}}>Create one free — 25 scans/day</Link>
         </p>
+
+        {/* Feature highlights — mobile only, shown below form */}
+        <div className="mob-only mob-features">
+          <p style={{color:'var(--text4)',fontSize:'11px',fontWeight:'700',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:'4px'}}>What you get</p>
+          {[
+            {icon:'🎯',text:'ATS score with 4-point breakdown'},
+            {icon:'✍️',text:'Before/after bullet rewrites'},
+            {icon:'💡',text:'Quick wins in 5 minutes'},
+            {icon:'📊',text:'Track progress over time'},
+          ].map((f,i)=>(
+            <div key={i} className="mob-feat-row">
+              <span style={{fontSize:'18px',flexShrink:0}}>{f.icon}</span>
+              <span style={{color:'var(--text2)',fontSize:'14px'}}>{f.text}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )

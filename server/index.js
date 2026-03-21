@@ -12,19 +12,27 @@ const app = express();
 const uploadsDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
 
-// CORS — allow localhost in dev + your Vercel URL in prod
-const allowedOrigins = [
-  'http://localhost:5173',
-  'http://localhost:5174',
-  'http://localhost:5175',
-  'http://localhost:4173',
-  process.env.FRONTEND_URL,
-].filter(Boolean);
 app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (Postman, mobile apps, curl)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
+
+    const allowed = [
+      'http://localhost:5173',
+      'http://localhost:5174',
+      'http://localhost:5175',
+      'http://localhost:4173',
+      process.env.FRONTEND_URL,
+    ].filter(Boolean);
+
+    // Allow exact match
+    if (allowed.includes(origin)) return callback(null, true);
+
+    // Allow ALL Vercel preview deployments for this project
+    if (origin.includes('resume-analyzer') && origin.endsWith('.vercel.app')) {
+      return callback(null, true);
+    }
+
     callback(new Error(`CORS blocked for origin: ${origin}`));
   },
   credentials: true,
@@ -37,7 +45,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth',   require('./routes/auth'));
 app.use('/api/resume', require('./routes/resume'));
 
-// Health check (Render pings this to keep service alive)
+// Health check
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
 app.get('/', (req, res) => {

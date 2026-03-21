@@ -58,10 +58,14 @@ export default function Register() {
         .bmain:disabled{opacity:0.5;cursor:not-allowed;transform:none;animation:none}
         .brow{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
         .brow:last-child{border-bottom:none}
+        @media(max-width:768px){
+          .reg-left{display:none !important}
+          .reg-right{width:100% !important;padding:32px 24px !important;border-left:none !important;min-height:100vh;overflow-y:auto}
+        }
       `}</style>
 
       {/* LEFT */}
-      <div style={{flex:1,position:'relative',overflow:'hidden',display:'flex',flexDirection:'column',justifyContent:'center',padding:'60px 64px'}}>
+      <div className="reg-left" style={{flex:1,position:'relative',overflow:'hidden',display:'flex',flexDirection:'column',justifyContent:'center',padding:'60px 64px'}}>
         <div style={{position:'absolute',top:'-10%',left:'-5%',width:'520px',height:'520px',background:`radial-gradient(circle,${c.b1} 0%,transparent 65%)`,animation:'b1 14s ease-in-out infinite',pointerEvents:'none'}}/>
         <div style={{position:'absolute',bottom:'-10%',right:'-5%',width:'420px',height:'420px',background:`radial-gradient(circle,${c.b2} 0%,transparent 65%)`,animation:'b2 18s ease-in-out infinite',pointerEvents:'none'}}/>
         <div style={{position:'absolute',inset:0,backgroundImage:`linear-gradient(${c.gr} 1px,transparent 1px),linear-gradient(90deg,${c.gr} 1px,transparent 1px)`,backgroundSize:'50px 50px',pointerEvents:'none'}}/>
@@ -73,7 +77,6 @@ export default function Register() {
           <div key={i} style={{position:'absolute',top:s.t,left:s.l,width:'3px',height:'3px',borderRadius:'50%',background:c.st,animation:`tw ${2+i*0.35}s ease-in-out infinite ${i*0.4}s`,pointerEvents:'none'}}/>
         ))}
         <div style={{position:'absolute',left:0,right:0,height:'1px',background:`linear-gradient(90deg,transparent,${c.sc},transparent)`,animation:'scan 7s linear infinite',pointerEvents:'none'}}/>
-
         <div style={{position:'relative',zIndex:1,maxWidth:'500px',animation:'sl 0.7s ease both'}}>
           <div style={{display:'flex',alignItems:'center',gap:'14px',marginBottom:'40px'}}>
             <div style={{width:'52px',height:'52px',background:'linear-gradient(135deg,#16a34a,#2563eb)',borderRadius:'15px',display:'flex',alignItems:'center',justifyContent:'center',animation:'glow 3s ease-in-out infinite',flexShrink:0}}>
@@ -104,7 +107,7 @@ export default function Register() {
       </div>
 
       {/* RIGHT */}
-      <div style={{width:'440px',flexShrink:0,display:'flex',flexDirection:'column',justifyContent:'center',padding:'0 44px',background:'var(--card-bg)',borderLeft:'1px solid var(--border)',backdropFilter:'blur(20px)',animation:'sr 0.7s ease both',transition:'background 0.3s'}}>
+      <div className="reg-right" style={{width:'440px',flexShrink:0,display:'flex',flexDirection:'column',justifyContent:'center',padding:'0 44px',background:'var(--card-bg)',borderLeft:'1px solid var(--border)',backdropFilter:'blur(20px)',animation:'sr 0.7s ease both',transition:'background 0.3s'}}>
         <div>
           <div style={{animation:'fu 0.5s ease 0.1s both',marginBottom:'22px'}}>
             <h2 style={{fontSize:'26px',fontWeight:'900',color:'var(--text)',marginBottom:'8px'}}>Create your account</h2>

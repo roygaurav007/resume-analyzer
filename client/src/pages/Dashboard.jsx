@@ -83,8 +83,14 @@ export default function Dashboard() {
         .abtn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(37,99,235,0.5);animation:none}
         .db{background:none;border:none;cursor:pointer;color:var(--text4);padding:6px;border-radius:8px;display:flex;transition:all 0.2s;flex-shrink:0}
         .db:hover{color:#ef4444;background:rgba(239,68,68,0.1)}
+        .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+        @media(max-width:640px){
+          .stats-grid{grid-template-columns:repeat(2,1fr) !important}
+          .dash-wrap{padding:20px 14px !important}
+          .rrow{padding:12px 14px !important}
+        }
       `}</style>
-      <div style={{maxWidth:'960px',margin:'0 auto'}}>
+      <div className="dash-wrap" style={{maxWidth:'960px',margin:'0 auto'}}>
         {/* Header */}
         <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'24px',flexWrap:'wrap',gap:'14px',animation:'su 0.45s ease both'}}>
           <div>
@@ -112,7 +118,7 @@ export default function Dashboard() {
 
         {/* Stats */}
         {resumes.length>0&&(
-          <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'12px',marginBottom:'18px',animation:'su 0.45s ease 0.16s both'}}>
+          <div className="stats-grid" style={{marginBottom:'18px',animation:'su 0.45s ease 0.16s both'}}>
             {[{v:resumes.length,l:'Total Scans',c:'var(--text)'},{v:lat,l:'Latest Score',c:gc(lat)},{v:best,l:'Best Score',c:gc(best)},{v:tr>0?`+${tr}`:tr===0?'—':tr,l:'vs Last Scan',c:tr>0?'#22c55e':tr<0?'#ef4444':'var(--text4)'}].map((s,i)=>(
               <div key={i} className="scard">
                 <p style={{fontSize:'32px',fontWeight:'900',color:s.c,margin:'0 0 4px'}}>{s.v}</p>

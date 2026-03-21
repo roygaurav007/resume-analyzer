@@ -27,7 +27,6 @@ export default function Login() {
     finally { setGLoad(false) }
   }
 
-  // Colors adapt per theme — animations always render
   const c = {
     b1: dark?'rgba(37,99,235,0.22)':'rgba(37,99,235,0.1)',
     b2: dark?'rgba(124,58,237,0.18)':'rgba(124,58,237,0.08)',
@@ -68,30 +67,27 @@ export default function Login() {
         .bguest:disabled{opacity:0.5;cursor:not-allowed;transform:none;animation:none}
         .frow{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
         .frow:last-child{border-bottom:none}
+        @media(max-width:768px){
+          .login-left{display:none !important}
+          .login-right{width:100% !important;padding:32px 24px !important;border-left:none !important;min-height:100vh;overflow-y:auto}
+        }
       `}</style>
 
       {/* LEFT */}
-      <div style={{flex:1,position:'relative',overflow:'hidden',display:'flex',flexDirection:'column',justifyContent:'center',padding:'60px 64px'}}>
-        {/* Blobs - always rendered, lighter in light mode */}
+      <div className="login-left" style={{flex:1,position:'relative',overflow:'hidden',display:'flex',flexDirection:'column',justifyContent:'center',padding:'60px 64px'}}>
         <div style={{position:'absolute',top:'-10%',left:'-5%',width:'520px',height:'520px',background:`radial-gradient(circle,${c.b1} 0%,transparent 65%)`,animation:'b1 14s ease-in-out infinite',pointerEvents:'none'}}/>
         <div style={{position:'absolute',bottom:'-10%',right:'-5%',width:'420px',height:'420px',background:`radial-gradient(circle,${c.b2} 0%,transparent 65%)`,animation:'b2 18s ease-in-out infinite',pointerEvents:'none'}}/>
         <div style={{position:'absolute',top:'45%',left:'45%',width:'340px',height:'340px',background:`radial-gradient(circle,${c.b3} 0%,transparent 65%)`,animation:'b3 11s ease-in-out infinite',pointerEvents:'none',transform:'translate(-50%,-50%)'}}/>
-        {/* Grid */}
         <div style={{position:'absolute',inset:0,backgroundImage:`linear-gradient(${c.gr} 1px,transparent 1px),linear-gradient(90deg,${c.gr} 1px,transparent 1px)`,backgroundSize:'50px 50px',pointerEvents:'none'}}/>
-        {/* Orbiting dots */}
         <div style={{position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',pointerEvents:'none'}}>
           <div style={{width:'5px',height:'5px',borderRadius:'50%',background:c.o1,boxShadow:`0 0 10px ${c.o1}`,animation:'orb1 10s linear infinite'}}/>
           <div style={{width:'3px',height:'3px',borderRadius:'50%',background:c.o2,boxShadow:`0 0 7px ${c.o2}`,animation:'orb2 14s linear infinite',marginTop:'-3px'}}/>
         </div>
-        {/* Stars */}
         {[{t:'8%',l:'7%',d:'0s'},{t:'18%',l:'86%',d:'1s'},{t:'60%',l:'5%',d:'1.6s'},{t:'84%',l:'78%',d:'0.4s'},{t:'40%',l:'92%',d:'2s'},{t:'75%',l:'40%',d:'1.2s'}].map((s,i)=>(
           <div key={i} style={{position:'absolute',top:s.t,left:s.l,width:'3px',height:'3px',borderRadius:'50%',background:c.st,animation:`tw ${2+i*0.35}s ease-in-out infinite ${s.d}`,pointerEvents:'none'}}/>
         ))}
-        {/* Scan line */}
         <div style={{position:'absolute',left:0,right:0,height:'1px',background:`linear-gradient(90deg,transparent,${c.sc},transparent)`,animation:'scan 7s linear infinite',pointerEvents:'none'}}/>
-
         <div style={{position:'relative',zIndex:1,maxWidth:'500px',animation:'sl 0.7s ease both'}}>
-          {/* Logo */}
           <div style={{display:'flex',alignItems:'center',gap:'14px',marginBottom:'40px'}}>
             <div style={{width:'52px',height:'52px',background:'linear-gradient(135deg,#2563eb,#7c3aed)',borderRadius:'15px',display:'flex',alignItems:'center',justifyContent:'center',animation:'glow 3s ease-in-out infinite',flexShrink:0}}>
               <span style={{color:'white',fontSize:'24px',fontWeight:'900'}}>R</span>
@@ -121,7 +117,7 @@ export default function Login() {
       </div>
 
       {/* RIGHT */}
-      <div style={{width:'440px',flexShrink:0,display:'flex',flexDirection:'column',justifyContent:'center',padding:'0 44px',background:'var(--card-bg)',borderLeft:'1px solid var(--border)',backdropFilter:'blur(20px)',animation:'sr 0.7s ease both',transition:'background 0.3s'}}>
+      <div className="login-right" style={{width:'440px',flexShrink:0,display:'flex',flexDirection:'column',justifyContent:'center',padding:'0 44px',background:'var(--card-bg)',borderLeft:'1px solid var(--border)',backdropFilter:'blur(20px)',animation:'sr 0.7s ease both',transition:'background 0.3s'}}>
         <div>
           <div style={{animation:'fu 0.5s ease 0.1s both',marginBottom:'28px'}}>
             <h2 style={{fontSize:'26px',fontWeight:'900',color:'var(--text)',marginBottom:'5px'}}>Welcome back</h2>

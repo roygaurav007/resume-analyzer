@@ -39,7 +39,7 @@ export default function Login() {
   }
 
   return (
-    <div style={{minHeight:'100vh',display:'flex',fontFamily:"'Segoe UI',sans-serif",background:'var(--bg)',transition:'background 0.3s',overflow:'hidden'}}>
+    <div style={{minHeight:'100vh',display:'flex',fontFamily:"'Segoe UI',sans-serif",background:'var(--bg)',transition:'background 0.3s'}}>
       <style>{`
         @keyframes b1{0%,100%{transform:translate(0,0) scale(1)}45%{transform:translate(50px,-35px) scale(1.08)}75%{transform:translate(-20px,25px) scale(0.94)}}
         @keyframes b2{0%,100%{transform:translate(0,0) scale(1)}40%{transform:translate(-35px,20px) scale(1.06)}70%{transform:translate(25px,-15px) scale(0.95)}}
@@ -49,32 +49,38 @@ export default function Login() {
         @keyframes fu{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
         @keyframes sl{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
         @keyframes sr{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
-        @keyframes orb1{to{transform:rotate(360deg) translateX(220px) rotate(-360deg)}}
-        @keyframes orb2{to{transform:rotate(-360deg) translateX(160px) rotate(360deg)}}
+        @keyframes orb1{to{transform:rotate(360deg) translateX(120px) rotate(-360deg)}}
+        @keyframes orb2{to{transform:rotate(-360deg) translateX(80px) rotate(360deg)}}
         @keyframes tw{0%,100%{opacity:0.15;transform:scale(0.7)}50%{opacity:0.9;transform:scale(1.5)}}
-        @keyframes scan{0%{top:-2px;opacity:0.7}100%{top:100%;opacity:0}}
+        @keyframes scan{0%{top:0;opacity:0.7}100%{top:100%;opacity:0}}
         @keyframes lp{0%{opacity:0;transform:translateY(18px) scale(0.8)}60%{transform:translateY(-3px) scale(1.04)}100%{opacity:1;transform:translateY(0) scale(1)}}
-        @keyframes gp{0%,100%{border-color:rgba(251,191,36,0.35)}50%{border-color:rgba(251,191,36,0.7);box-shadow:0 0 0 4px rgba(251,191,36,0)}}
-        .inp{width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid var(--inp-border);font-size:14px;outline:none;background:var(--inp-bg);color:var(--text);box-sizing:border-box;transition:all 0.25s;font-family:inherit}
+        @keyframes gp{0%,100%{border-color:rgba(251,191,36,0.35)}50%{border-color:rgba(251,191,36,0.7)}}
+        .inp{width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid var(--inp-border);font-size:15px;outline:none;background:var(--inp-bg);color:var(--text);box-sizing:border-box;transition:all 0.25s;font-family:inherit}
         .inp::placeholder{color:var(--text4)}
         .inp:focus{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,0.12)}
         .inp:-webkit-autofill{-webkit-box-shadow:0 0 0 1000px var(--inp-bg) inset !important;-webkit-text-fill-color:var(--text) !important}
-        .bmain{width:100%;padding:13px;border:none;border-radius:11px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;background:linear-gradient(135deg,#2563eb,#7c3aed);color:white;transition:all 0.3s;animation:glow 3s ease-in-out infinite}
+        .bmain{width:100%;padding:14px;border:none;border-radius:11px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;background:linear-gradient(135deg,#2563eb,#7c3aed);color:white;transition:all 0.3s;animation:glow 3s ease-in-out infinite}
         .bmain:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(37,99,235,0.6)}
         .bmain:disabled{opacity:0.5;cursor:not-allowed;transform:none;animation:none}
-        .bguest{width:100%;padding:13px 16px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;background:rgba(251,191,36,0.07);border:1.5px solid rgba(251,191,36,0.35);transition:all 0.3s;animation:gp 2.5s ease-in-out infinite;display:flex;align-items:center;justify-content:center;gap:10px}
-        .bguest:hover{background:rgba(251,191,36,0.14);border-color:rgba(251,191,36,0.8);transform:translateY(-2px);box-shadow:0 8px 24px rgba(251,191,36,0.2);animation:none}
+        .bguest{width:100%;padding:14px 16px;border-radius:11px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;background:rgba(251,191,36,0.07);border:1.5px solid rgba(251,191,36,0.35);transition:all 0.3s;animation:gp 2.5s ease-in-out infinite;display:flex;align-items:center;justify-content:center;gap:10px}
+        .bguest:hover{background:rgba(251,191,36,0.14);border-color:rgba(251,191,36,0.8);transform:translateY(-2px)}
         .bguest:disabled{opacity:0.5;cursor:not-allowed;transform:none;animation:none}
         .frow{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
         .frow:last-child{border-bottom:none}
+        /* Desktop: side by side */
+        .login-left{display:flex;flex:1;position:relative;flex-direction:column;justify-content:center;padding:60px 64px;overflow:hidden}
+        .login-right{width:440px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;padding:0 44px;background:var(--card-bg);border-left:1px solid var(--border);backdrop-filter:blur(20px);transition:background 0.3s;animation:sr 0.7s ease both}
+        /* Mobile: single column, no side panel */
         @media(max-width:768px){
           .login-left{display:none !important}
-          .login-right{width:100% !important;padding:32px 24px !important;border-left:none !important;min-height:100vh;overflow-y:auto}
+          .login-right{width:100% !important;padding:40px 24px !important;border-left:none !important;justify-content:flex-start !important;padding-top:48px !important;animation:none !important}
+          .mob-logo{display:flex !important}
         }
+        .mob-logo{display:none;align-items:center;gap:10px;margin-bottom:32px}
       `}</style>
 
-      {/* LEFT */}
-      <div className="login-left" style={{flex:1,position:'relative',overflow:'hidden',display:'flex',flexDirection:'column',justifyContent:'center',padding:'60px 64px'}}>
+      {/* LEFT PANEL — desktop only */}
+      <div className="login-left">
         <div style={{position:'absolute',top:'-10%',left:'-5%',width:'520px',height:'520px',background:`radial-gradient(circle,${c.b1} 0%,transparent 65%)`,animation:'b1 14s ease-in-out infinite',pointerEvents:'none'}}/>
         <div style={{position:'absolute',bottom:'-10%',right:'-5%',width:'420px',height:'420px',background:`radial-gradient(circle,${c.b2} 0%,transparent 65%)`,animation:'b2 18s ease-in-out infinite',pointerEvents:'none'}}/>
         <div style={{position:'absolute',top:'45%',left:'45%',width:'340px',height:'340px',background:`radial-gradient(circle,${c.b3} 0%,transparent 65%)`,animation:'b3 11s ease-in-out infinite',pointerEvents:'none',transform:'translate(-50%,-50%)'}}/>
@@ -116,46 +122,56 @@ export default function Login() {
         </div>
       </div>
 
-      {/* RIGHT */}
-      <div className="login-right" style={{width:'440px',flexShrink:0,display:'flex',flexDirection:'column',justifyContent:'center',padding:'0 44px',background:'var(--card-bg)',borderLeft:'1px solid var(--border)',backdropFilter:'blur(20px)',animation:'sr 0.7s ease both',transition:'background 0.3s'}}>
-        <div>
-          <div style={{animation:'fu 0.5s ease 0.1s both',marginBottom:'28px'}}>
-            <h2 style={{fontSize:'26px',fontWeight:'900',color:'var(--text)',marginBottom:'5px'}}>Welcome back</h2>
-            <p style={{color:'var(--text3)',fontSize:'14px',margin:0}}>Sign in to continue your journey</p>
+      {/* RIGHT PANEL — full page on mobile */}
+      <div className="login-right">
+        {/* Logo shown only on mobile */}
+        <div className="mob-logo">
+          <div style={{width:'38px',height:'38px',background:'linear-gradient(135deg,#2563eb,#7c3aed)',borderRadius:'11px',display:'flex',alignItems:'center',justifyContent:'center'}}>
+            <span style={{color:'white',fontSize:'18px',fontWeight:'900'}}>R</span>
           </div>
-          {error&&<div style={{background:'rgba(239,68,68,0.1)',border:'1px solid rgba(239,68,68,0.25)',color:dark?'#f87171':'#dc2626',borderRadius:'10px',padding:'11px 14px',fontSize:'13px',marginBottom:'18px'}}>{error}</div>}
-          <form onSubmit={onSubmit}>
-            <div style={{marginBottom:'14px',animation:'fu 0.5s ease 0.2s both'}}>
-              <label style={{display:'block',fontSize:'11px',fontWeight:'700',color:'var(--text4)',marginBottom:'7px',textTransform:'uppercase',letterSpacing:'0.08em'}}>Email</label>
-              <input type="email" name="email" value={form.email} onChange={onChange} required placeholder="you@example.com" className="inp"/>
-            </div>
-            <div style={{marginBottom:'22px',animation:'fu 0.5s ease 0.28s both'}}>
-              <label style={{display:'block',fontSize:'11px',fontWeight:'700',color:'var(--text4)',marginBottom:'7px',textTransform:'uppercase',letterSpacing:'0.08em'}}>Password</label>
-              <input type="password" name="password" value={form.password} onChange={onChange} required placeholder="••••••••" className="inp"/>
-            </div>
-            <div style={{animation:'fu 0.5s ease 0.35s both',marginBottom:'12px'}}>
-              <button type="submit" disabled={loading} className="bmain">{loading?'Signing in...':'Sign in →'}</button>
-            </div>
-          </form>
-          <div style={{display:'flex',alignItems:'center',gap:'12px',margin:'6px 0 12px',animation:'fu 0.5s ease 0.42s both'}}>
-            <div style={{flex:1,height:'1px',background:'var(--border)'}}/>
-            <span style={{color:'var(--text4)',fontSize:'11px',fontWeight:'600',letterSpacing:'0.07em'}}>OR TRY FOR FREE</span>
-            <div style={{flex:1,height:'1px',background:'var(--border)'}}/>
+          <div style={{display:'flex',alignItems:'baseline'}}>
+            {'ResumeAI'.split('').map((ch,i)=>(
+              <span key={i} style={{fontSize:'22px',fontWeight:'900',color:i>=6?'#60a5fa':'var(--text)'}}>{ch}</span>
+            ))}
           </div>
-          <div style={{animation:'fu 0.5s ease 0.48s both',marginBottom:'28px'}}>
-            <button onClick={onGuest} disabled={gLoading} className="bguest">
-              <span style={{fontSize:'18px'}}>👤</span>
-              <div style={{textAlign:'left'}}>
-                <p style={{margin:0,fontSize:'14px',fontWeight:'700',color:dark?'#fbbf24':'#d97706'}}>{gLoading?'Setting up...':'Continue as Guest'}</p>
-                <p style={{margin:0,fontSize:'12px',color:'var(--text3)'}}>No signup · 5 free scans per hour</p>
-              </div>
-              {!gLoading&&<span style={{marginLeft:'auto',color:'var(--text4)',fontSize:'16px'}}>→</span>}
-            </button>
-          </div>
-          <p style={{textAlign:'center',fontSize:'14px',color:'var(--text4)',margin:0,animation:'fu 0.5s ease 0.54s both'}}>
-            No account?{' '}<Link to="/register" style={{color:'#3b82f6',fontWeight:'700',textDecoration:'none'}}>Create one free — 25 scans/day</Link>
-          </p>
         </div>
+
+        <div style={{animation:'fu 0.5s ease 0.1s both',marginBottom:'28px'}}>
+          <h2 style={{fontSize:'28px',fontWeight:'900',color:'var(--text)',marginBottom:'6px'}}>Welcome back</h2>
+          <p style={{color:'var(--text3)',fontSize:'15px',margin:0}}>Sign in to continue your journey</p>
+        </div>
+        {error&&<div style={{background:'rgba(239,68,68,0.1)',border:'1px solid rgba(239,68,68,0.25)',color:dark?'#f87171':'#dc2626',borderRadius:'10px',padding:'12px 16px',fontSize:'14px',marginBottom:'18px'}}>{error}</div>}
+        <form onSubmit={onSubmit}>
+          <div style={{marginBottom:'16px',animation:'fu 0.5s ease 0.2s both'}}>
+            <label style={{display:'block',fontSize:'12px',fontWeight:'700',color:'var(--text4)',marginBottom:'8px',textTransform:'uppercase',letterSpacing:'0.08em'}}>Email</label>
+            <input type="email" name="email" value={form.email} onChange={onChange} required placeholder="you@example.com" className="inp"/>
+          </div>
+          <div style={{marginBottom:'24px',animation:'fu 0.5s ease 0.28s both'}}>
+            <label style={{display:'block',fontSize:'12px',fontWeight:'700',color:'var(--text4)',marginBottom:'8px',textTransform:'uppercase',letterSpacing:'0.08em'}}>Password</label>
+            <input type="password" name="password" value={form.password} onChange={onChange} required placeholder="••••••••" className="inp"/>
+          </div>
+          <div style={{animation:'fu 0.5s ease 0.35s both',marginBottom:'14px'}}>
+            <button type="submit" disabled={loading} className="bmain">{loading?'Signing in...':'Sign in →'}</button>
+          </div>
+        </form>
+        <div style={{display:'flex',alignItems:'center',gap:'12px',margin:'8px 0 14px',animation:'fu 0.5s ease 0.42s both'}}>
+          <div style={{flex:1,height:'1px',background:'var(--border)'}}/>
+          <span style={{color:'var(--text4)',fontSize:'11px',fontWeight:'600',letterSpacing:'0.07em'}}>OR TRY FOR FREE</span>
+          <div style={{flex:1,height:'1px',background:'var(--border)'}}/>
+        </div>
+        <div style={{animation:'fu 0.5s ease 0.48s both',marginBottom:'28px'}}>
+          <button onClick={onGuest} disabled={gLoading} className="bguest">
+            <span style={{fontSize:'20px'}}>👤</span>
+            <div style={{textAlign:'left'}}>
+              <p style={{margin:0,fontSize:'15px',fontWeight:'700',color:dark?'#fbbf24':'#d97706'}}>{gLoading?'Setting up...':'Continue as Guest'}</p>
+              <p style={{margin:0,fontSize:'13px',color:'var(--text3)'}}>No signup · 5 free scans per hour</p>
+            </div>
+            {!gLoading&&<span style={{marginLeft:'auto',color:'var(--text4)',fontSize:'18px'}}>→</span>}
+          </button>
+        </div>
+        <p style={{textAlign:'center',fontSize:'15px',color:'var(--text4)',margin:0,animation:'fu 0.5s ease 0.54s both'}}>
+          No account?{' '}<Link to="/register" style={{color:'#3b82f6',fontWeight:'700',textDecoration:'none'}}>Create one free — 25 scans/day</Link>
+        </p>
       </div>
     </div>
   )

@@ -26,24 +26,44 @@ export default function Landing() {
     { val: '0', label: 'Signup required to try' },
   ]
 
+  // Color Constants from Login Page logic
+  const c = {
+    b1: dark ? 'rgba(37,99,235,0.22)' : 'rgba(37,99,235,0.1)',
+    b2: dark ? 'rgba(124,58,237,0.18)' : 'rgba(124,58,237,0.08)',
+    b3: dark ? 'rgba(52,211,153,0.1)' : 'rgba(52,211,153,0.07)',
+    sc: dark ? 'rgba(59,130,246,0.25)' : 'rgba(59,130,246,0.12)',
+    st: dark ? 'white' : '#3b82f6',
+    gr: dark ? 'rgba(255,255,255,0.02)' : 'rgba(37,99,235,0.05)',
+    o1: dark ? '#60a5fa' : '#3b82f6',
+    o2: dark ? '#a78bfa' : '#8b5cf6',
+  }
+
   return (
-    <div style={{ background: 'var(--bg)', minHeight: '100vh', fontFamily: "'Segoe UI', sans-serif", transition: 'background 0.3s' }}>
+    <div style={{ background: 'var(--bg)', minHeight: '100vh', fontFamily: "'Segoe UI', sans-serif", transition: 'background 0.3s', position: 'relative', overflowX: 'hidden' }}>
       <style>{`
-        @keyframes fu { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes grad { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
-        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-        @keyframes pulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
-        @keyframes glow { 0%,100%{box-shadow:0 0 20px rgba(37,99,235,0.4)} 50%{box-shadow:0 0 40px rgba(37,99,235,0.7)} }
-        .feat-card { background:var(--card-bg); border:1px solid var(--border); border-radius:18px; padding:24px; transition:all 0.3s; }
+        /* Animations from Login Page */
+        @keyframes b1{0%,100%{transform:translate(0,0) scale(1)}45%{transform:translate(50px,-35px) scale(1.08)}75%{transform:translate(-20px,25px) scale(0.94)}}
+        @keyframes b2{0%,100%{transform:translate(0,0) scale(1)}40%{transform:translate(-35px,20px) scale(1.06)}70%{transform:translate(25px,-15px) scale(0.95)}}
+        @keyframes b3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,28px) scale(1.1)}}
+        @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(37,99,235,0.45)}50%{box-shadow:0 0 50px rgba(37,99,235,0.8),0 0 80px rgba(124,58,237,0.3)}}
+        @keyframes grad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+        @keyframes fu{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes orb1{to{transform:rotate(360deg) translateX(120px) rotate(-360deg)}}
+        @keyframes orb2{to{transform:rotate(-360deg) translateX(80px) rotate(360deg)}}
+        @keyframes tw{0%,100%{opacity:0.15;transform:scale(0.7)}50%{opacity:0.9;transform:scale(1.5)}}
+        @keyframes scan{0%{top:0;opacity:0.7}100%{top:100%;opacity:0}}
+        @keyframes lp{0%{opacity:0;transform:translateY(18px) scale(0.8)}60%{transform:translateY(-3px) scale(1.04)}100%{opacity:1;transform:translateY(0) scale(1)}}
+
+        /* Landing Page Specifics */
+        .feat-card { background:var(--card-bg); border:1px solid var(--border); border-radius:18px; padding:24px; transition:all 0.3s; position:relative; z-index:2; }
         .feat-card:hover { border-color:rgba(37,99,235,0.4); transform:translateY(-4px); box-shadow:0 12px 40px rgba(37,99,235,0.1); }
         .try-btn { display:inline-flex; align-items:center; gap:10px; padding:16px 36px; background:linear-gradient(135deg,#2563eb,#7c3aed); color:white; border-radius:14px; font-size:18px; font-weight:700; text-decoration:none; transition:all 0.3s; animation:glow 3s ease-in-out infinite; }
         .try-btn:hover { transform:translateY(-3px); box-shadow:0 16px 40px rgba(37,99,235,0.6); animation:none; }
         .sec-btn { display:inline-flex; align-items:center; gap:8px; padding:16px 28px; background:var(--bg2); border:1px solid var(--border2); color:var(--text); border-radius:14px; font-size:16px; font-weight:600; text-decoration:none; transition:all 0.3s; }
         .sec-btn:hover { background:var(--bg3); transform:translateY(-2px); }
-        .stat-card { background:var(--card-bg); border:1px solid var(--border); border-radius:16px; padding:24px; text-align:center; }
+        .stat-card { background:var(--card-bg); border:1px solid var(--border); border-radius:16px; padding:24px; text-align:center; position:relative; z-index:2; }
         .step-num { width:48px; height:48px; border-radius:14px; background:linear-gradient(135deg,rgba(37,99,235,0.15),rgba(124,58,237,0.15)); border:1px solid rgba(37,99,235,0.25); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:900; color:#60a5fa; flex-shrink:0; }
-        /* Mobile adjustments */
-        .hero-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
         .stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
         .feat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
         .steps-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
@@ -56,33 +76,54 @@ export default function Landing() {
         }
       `}</style>
 
-      {/* ── HERO ── */}
-      <section style={{ padding: '80px 24px 64px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-        {/* Background blobs */}
-        <div style={{ position: 'absolute', top: '-20%', left: '50%', transform: 'translateX(-50%)', width: '800px', height: '600px', background: `radial-gradient(ellipse,${dark?'rgba(37,99,235,0.12)':'rgba(37,99,235,0.07)'} 0%,transparent 70%)`, pointerEvents: 'none' }}/>
+      {/* ── SHARED BACKGROUND ANIMATIONS ── */}
+      <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
+        {/* Blobs */}
+        <div style={{ position: 'absolute', top: '-10%', left: '-5%', width: '600px', height: '600px', background: `radial-gradient(circle,${c.b1} 0%,transparent 65%)`, animation: 'b1 14s ease-in-out infinite' }} />
+        <div style={{ position: 'absolute', bottom: '10%', right: '-5%', width: '500px', height: '500px', background: `radial-gradient(circle,${c.b2} 0%,transparent 65%)`, animation: 'b2 18s ease-in-out infinite' }} />
+        <div style={{ position: 'absolute', top: '40%', left: '50%', width: '400px', height: '400px', background: `radial-gradient(circle,${c.b3} 0%,transparent 65%)`, animation: 'b3 11s ease-in-out infinite', transform: 'translateX(-50%)' }} />
+        
+        {/* Grid Overlay */}
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: `linear-gradient(${c.gr} 1px,transparent 1px),linear-gradient(90deg,${c.gr} 1px,transparent 1px)`, backgroundSize: '60px 60px' }} />
+        
+        {/* Scanning Line */}
+        <div style={{ position: 'absolute', left: 0, right: 0, height: '2px', background: `linear-gradient(90deg,transparent,${c.sc},transparent)`, animation: 'scan 8s linear infinite' }} />
+        
+        {/* Twinkling Stars */}
+        {[{ t: '5%', l: '10%' }, { t: '15%', l: '80%' }, { t: '45%', l: '5%' }, { t: '80%', l: '90%' }, { t: '70%', l: '20%' }].map((s, i) => (
+          <div key={i} style={{ position: 'absolute', top: s.t, left: s.l, width: '3px', height: '3px', borderRadius: '50%', background: c.st, animation: `tw ${3 + i}s ease-in-out infinite` }} />
+        ))}
+      </div>
 
-        <div style={{ position: 'relative', zIndex: 1, maxWidth: '780px', margin: '0 auto' }}>
-          {/* Badge */}
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(37,99,235,0.1)', border: '1px solid rgba(37,99,235,0.25)', borderRadius: '99px', padding: '6px 18px', marginBottom: '28px', animation: 'fu 0.5s ease both' }}>
-            <span style={{ width: '7px', height: '7px', background: '#3b82f6', borderRadius: '50%', animation: 'pulse 2s ease-in-out infinite', flexShrink: 0 }}/>
+      {/* ── HERO ── */}
+      <section style={{ padding: '100px 24px 64px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+        <div style={{ maxWidth: '850px', margin: '0 auto' }}>
+          
+          {/* Animated Badge */}
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(37,99,235,0.1)', border: '1px solid rgba(37,99,235,0.25)', borderRadius: '99px', padding: '6px 18px', marginBottom: '28px', animation: 'fu 0.6s ease both' }}>
+            <span style={{ width: '7px', height: '7px', background: '#3b82f6', borderRadius: '50%', animation: 'glow 2s ease-in-out infinite', flexShrink: 0 }} />
             <span style={{ color: '#60a5fa', fontSize: '14px', fontWeight: '600' }}>Free AI Resume Analyzer — No Signup Required</span>
           </div>
 
-          {/* Headline */}
-          <h1 className="hero-h" style={{ fontSize: '56px', fontWeight: '900', color: 'var(--text)', lineHeight: 1.05, marginBottom: '20px', letterSpacing: '-1.5px', animation: 'fu 0.5s ease 0.1s both' }}>
-            Get your resume<br/>
+          {/* Letter-by-Letter Headline */}
+          <h1 className="hero-h" style={{ fontSize: '64px', fontWeight: '900', color: 'var(--text)', lineHeight: 1.05, marginBottom: '20px', letterSpacing: '-2px' }}>
+            <div style={{ marginBottom: '10px' }}>
+              {'Get your resume'.split('').map((ch, i) => (
+                <span key={i} style={{ display: 'inline-block', animation: `lp 0.5s cubic-bezier(0.34,1.56,0.64,1) ${i * 0.04}s both` }}>
+                  {ch === ' ' ? '\u00A0' : ch}
+                </span>
+              ))}
+            </div>
             <span style={{ background: 'linear-gradient(135deg,#60a5fa,#a78bfa,#34d399)', backgroundSize: '200% auto', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', animation: 'grad 4s ease infinite' }}>
               interview-ready
             </span>
           </h1>
 
-          {/* Subheading */}
-          <p className="hero-sub" style={{ fontSize: '20px', color: 'var(--text3)', lineHeight: 1.75, marginBottom: '40px', maxWidth: '580px', margin: '0 auto 40px', animation: 'fu 0.5s ease 0.2s both' }}>
+          <p className="hero-sub" style={{ fontSize: '20px', color: 'var(--text3)', lineHeight: 1.75, marginBottom: '40px', maxWidth: '600px', margin: '0 auto 40px', animation: 'fu 0.6s ease 0.4s both' }}>
             Upload your PDF resume and get a brutally honest AI review — ATS score, specific fixes, rewritten bullets, and a full action plan. In 20 seconds.
           </p>
 
-          {/* CTAs */}
-          <div className="hero-btns" style={{ animation: 'fu 0.5s ease 0.3s both' }}>
+          <div className="hero-btns" style={{ animation: 'fu 0.6s ease 0.6s both' }}>
             <Link to="/analyze" className="try-btn">
               🚀 Analyze My Resume Free
             </Link>
@@ -90,19 +131,15 @@ export default function Landing() {
               📄 Get ATS Templates
             </Link>
           </div>
-
-          <p style={{ color: 'var(--text4)', fontSize: '13px', marginTop: '16px', animation: 'fu 0.5s ease 0.4s both' }}>
-            No credit card · No signup · Works instantly
-          </p>
         </div>
       </section>
 
       {/* ── STATS ── */}
-      <section style={{ padding: '0 24px 64px' }}>
+      <section style={{ padding: '0 24px 64px', position: 'relative', zIndex: 1 }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
           <div className="stats-grid">
             {stats.map((s, i) => (
-              <div key={i} className="stat-card" style={{ animation: `fu 0.5s ease ${0.1 + i * 0.08}s both` }}>
+              <div key={i} className="stat-card" style={{ animation: `fu 0.6s ease ${0.8 + i * 0.1}s both` }}>
                 <p style={{ fontSize: '36px', fontWeight: '900', color: '#60a5fa', margin: '0 0 6px', letterSpacing: '-1px' }}>{s.val}</p>
                 <p style={{ fontSize: '13px', color: 'var(--text3)', margin: 0, fontWeight: '500' }}>{s.label}</p>
               </div>
@@ -112,18 +149,17 @@ export default function Landing() {
       </section>
 
       {/* ── HOW IT WORKS ── */}
-      <section style={{ padding: '0 24px 72px' }}>
+      <section style={{ padding: '0 24px 72px', position: 'relative', zIndex: 1 }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-            <p style={{ color: 'var(--text4)', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '10px' }}>How It Works</p>
             <h2 style={{ fontSize: '32px', fontWeight: '900', color: 'var(--text)', margin: 0, letterSpacing: '-0.5px' }}>Three steps to a better resume</h2>
           </div>
           <div className="steps-grid">
             {steps.map((s, i) => (
-              <div key={i} style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: '20px', padding: '28px 24px', animation: `fu 0.5s ease ${0.1 + i * 0.1}s both` }}>
+              <div key={i} style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: '20px', padding: '28px 24px', animation: `fu 0.6s ease ${1 + i * 0.1}s both`, position: 'relative', zIndex: 2 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
                   <div className="step-num">{s.num}</div>
-                  <div style={{ flex: 1, height: '1px', background: 'var(--border)' }}/>
+                  <div style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
                 </div>
                 <h3 style={{ fontSize: '18px', fontWeight: '800', color: 'var(--text)', marginBottom: '8px' }}>{s.title}</h3>
                 <p style={{ color: 'var(--text3)', fontSize: '14px', lineHeight: 1.7, margin: 0 }}>{s.desc}</p>
@@ -134,15 +170,14 @@ export default function Landing() {
       </section>
 
       {/* ── FEATURES ── */}
-      <section style={{ padding: '0 24px 72px' }}>
+      <section style={{ padding: '0 24px 72px', position: 'relative', zIndex: 1 }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-            <p style={{ color: 'var(--text4)', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '10px' }}>What You Get</p>
             <h2 style={{ fontSize: '32px', fontWeight: '900', color: 'var(--text)', margin: 0, letterSpacing: '-0.5px' }}>Everything to fix your resume</h2>
           </div>
           <div className="feat-grid">
             {features.map((f, i) => (
-              <div key={i} className="feat-card" style={{ animation: `fu 0.5s ease ${0.05 + i * 0.07}s both` }}>
+              <div key={i} className="feat-card" style={{ animation: `fu 0.6s ease ${1.2 + i * 0.05}s both` }}>
                 <div style={{ fontSize: '28px', marginBottom: '14px' }}>{f.icon}</div>
                 <h3 style={{ fontSize: '17px', fontWeight: '800', color: 'var(--text)', marginBottom: '8px' }}>{f.title}</h3>
                 <p style={{ color: 'var(--text3)', fontSize: '14px', lineHeight: 1.7, margin: 0 }}>{f.desc}</p>
@@ -152,78 +187,18 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ── SAMPLE RESULT ── */}
-      <section style={{ padding: '0 24px 72px' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <div style={{ background: 'linear-gradient(135deg,rgba(37,99,235,0.08),rgba(124,58,237,0.06))', border: '1px solid rgba(59,130,246,0.2)', borderRadius: '24px', padding: '40px 32px' }}>
-            <p style={{ color: 'var(--text4)', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '16px' }}>Sample AI Feedback</p>
-            <div style={{ display: 'flex', gap: '24px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-              {/* Score */}
-              <div style={{ textAlign: 'center', flexShrink: 0 }}>
-                <div style={{ width: '100px', height: '100px', borderRadius: '50%', border: '6px solid #f59e0b', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: '0 auto 8px' }}>
-                  <span style={{ fontSize: '28px', fontWeight: '900', color: '#f59e0b' }}>52</span>
-                  <span style={{ color: 'var(--text4)', fontSize: '12px' }}>/100</span>
-                </div>
-                <span style={{ color: '#f59e0b', fontSize: '13px', fontWeight: '700', background: 'rgba(245,158,11,0.1)', padding: '3px 12px', borderRadius: '99px', border: '1px solid rgba(245,158,11,0.3)' }}>Average</span>
-              </div>
-              {/* Feedback snippets */}
-              <div style={{ flex: 1, minWidth: '240px' }}>
-                <div style={{ background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)', borderRadius: '12px', padding: '12px 16px', marginBottom: '10px' }}>
-                  <p style={{ color: '#f87171', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '5px' }}>✗ Issue Found</p>
-                  <p style={{ color: 'var(--text2)', fontSize: '14px', lineHeight: 1.6, margin: 0 }}>Bullet points lack measurable impact. "Worked on backend APIs" tells recruiters nothing.</p>
-                </div>
-                <div style={{ background: 'rgba(34,197,94,0.05)', border: '1px solid rgba(34,197,94,0.15)', borderRadius: '12px', padding: '12px 16px' }}>
-                  <p style={{ color: '#4ade80', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '5px' }}>✓ Suggested Fix</p>
-                  <p style={{ color: 'var(--text2)', fontSize: '14px', lineHeight: 1.6, margin: 0 }}>"Built 12 REST APIs using Node.js + Express, reducing response time by 40% and serving 500+ daily active users."</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── TEMPLATES TEASER ── */}
-      <section style={{ padding: '0 24px 72px' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto', background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: '24px', padding: '48px 32px', textAlign: 'center' }}>
-          <div style={{ fontSize: '40px', marginBottom: '16px' }}>📄</div>
-          <h2 style={{ fontSize: '28px', fontWeight: '900', color: 'var(--text)', marginBottom: '10px', letterSpacing: '-0.5px' }}>Free ATS-Friendly Templates</h2>
-          <p style={{ color: 'var(--text3)', fontSize: '16px', lineHeight: 1.75, marginBottom: '28px', maxWidth: '520px', margin: '0 auto 28px' }}>
-            Download clean, ATS-optimized resume templates for Software Engineers, Freshers, Data Scientists, and more. No fluff, no graphics — just templates that actually get past ATS filters.
-          </p>
-          <Link to="/templates" className="try-btn" style={{ display: 'inline-flex', fontSize: '16px', padding: '14px 32px' }}>
-            Browse Templates →
-          </Link>
-        </div>
-      </section>
-
-      {/* ── FINAL CTA ── */}
-      <section style={{ padding: '0 24px 80px' }}>
-        <div style={{ maxWidth: '680px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '36px', fontWeight: '900', color: 'var(--text)', marginBottom: '14px', letterSpacing: '-0.8px' }}>
-            Ready to fix your resume?
-          </h2>
-          <p style={{ color: 'var(--text3)', fontSize: '17px', marginBottom: '32px', lineHeight: 1.7 }}>
-            Takes 20 seconds. No signup. Completely free.
-          </p>
-          <Link to="/analyze" className="try-btn" style={{ fontSize: '17px', padding: '16px 40px' }}>
-            🚀 Analyze My Resume Now
-          </Link>
-        </div>
-      </section>
-
       {/* ── FOOTER ── */}
-      <footer style={{ borderTop: '1px solid var(--border)', padding: '24px', textAlign: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '8px' }}>
-          <div style={{ width: '24px', height: '24px', background: 'linear-gradient(135deg,#2563eb,#7c3aed)', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <span style={{ color: 'white', fontWeight: '900', fontSize: '12px' }}>R</span>
+      <footer style={{ borderTop: '1px solid var(--border)', padding: '40px 24px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '12px' }}>
+          <div style={{ width: '28px', height: '28px', background: 'linear-gradient(135deg,#2563eb,#7c3aed)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ color: 'white', fontWeight: '900', fontSize: '14px' }}>R</span>
           </div>
-          <span style={{ fontWeight: '800', color: 'var(--text)', fontSize: '15px' }}>ResumeAI</span>
+          <span style={{ fontWeight: '800', color: 'var(--text)', fontSize: '18px' }}>ResumeAI</span>
         </div>
         <p style={{ color: 'var(--text4)', fontSize: '13px', margin: 0 }}>
-          Built with MERN + Groq LLaMA 3.3 · Free forever ·{' '}
-          <Link to="/analyze" style={{ color: '#3b82f6', textDecoration: 'none' }}>Try it now</Link>
-          {' · '}
-          <Link to="/templates" style={{ color: '#3b82f6', textDecoration: 'none' }}>Templates</Link>
+          Built with MERN + Groq LLaMA 3.3 + a lot of coffee:☕ · Free forever
+          By Gaurav roy
+       
         </p>
       </footer>
     </div>

@@ -56,7 +56,7 @@ const KnightMascot = ({ uploaded }) => {
   const [frame,setFrame]   = useState(0)
   const [bounce,setBounce] = useState(0)
   const [msgIdx,setMsgIdx] = useState(0)
-  const idle     = ["Welcome, Adventurer!", "Drop thy resume here!", "I shall guide you!", "Upload and conquer!"]
+  const idle     = ["Welcome,to Gaurav's portal Adventurer!", "Drop thy resume here!", "I shall guide you!", "Upload and conquer!"]
   const uploaded_ = ["Excellent! Ready!", "Prepare for battle!", "Click Analyze now!"]
   const msgs = uploaded ? uploaded_ : idle
   useEffect(()=>{const t=setInterval(()=>setFrame(f=>(f+1)%2),500);return()=>clearInterval(t)},[])

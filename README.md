@@ -232,7 +232,6 @@ VITE_API_URL=https://your-render-url.onrender.com/api
 ## 🎯 What I Learned Building This
 
 - **Full MERN stack** from scratch — auth, file upload, DB design, API design
-- **Prompt engineering** — structuring AI prompts to return consistent, useful JSON
 - **Rate limiting** logic without external libraries
 - **Canvas API** for building a custom chart without Chart.js
 - **CORS debugging** across Vercel preview URLs and Render

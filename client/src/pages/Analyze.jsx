@@ -106,7 +106,6 @@ export default function Analyze() {
     const fd = new FormData(); fd.append('resume',file)
     try {
       const r = await api.post('/resume/upload', fd, { headers:{'Content-Type':'multipart/form-data'} })
-      // If backend auto-created a guest session, save it so results page works
       if(r.data.guestSession && !user) {
         login(r.data.guestSession.user, r.data.guestSession.token)
       }
@@ -116,8 +115,6 @@ export default function Analyze() {
       setLoading(false)
     }
   }
-
-  const scansLeft = user?.isGuest ? 5 : 25
 
   return (
     <div style={{minHeight:'100vh',background:'var(--bg)',padding:'32px 16px',transition:'background 0.3s'}}>
@@ -146,36 +143,6 @@ export default function Analyze() {
 
       <div style={{maxWidth:'900px',margin:'0 auto'}}>
 
-        {/* Sign up banner — shown when not logged in */}
-        {!user && (
-          <div style={{background:'linear-gradient(135deg,rgba(37,99,235,0.1),rgba(124,58,237,0.07))',border:'1px solid rgba(59,130,246,0.25)',borderRadius:'14px',padding:'14px 18px',marginBottom:'20px',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:'10px',animation:'fu 0.5s ease both'}}>
-            <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
-              <span style={{fontSize:'18px'}}>⚡</span>
-              <p style={{color:'var(--text2)',fontSize:'14px',margin:0}}>
-                <strong>5 free scans available.</strong> <Link to="/register" style={{color:'#60a5fa',fontWeight:'700',textDecoration:'none'}}>Sign up free</Link> for 25 scans/day + full history.
-              </p>
-            </div>
-            <Link to="/register" style={{background:'linear-gradient(135deg,#2563eb,#7c3aed)',color:'white',padding:'8px 18px',borderRadius:'9px',fontWeight:'700',fontSize:'13px',textDecoration:'none',flexShrink:0}}>
-              Sign Up Free →
-            </Link>
-          </div>
-        )}
-
-        {/* Guest banner — shown when guest */}
-        {user?.isGuest && (
-          <div style={{background:'rgba(251,191,36,0.07)',border:'1px solid rgba(251,191,36,0.25)',borderRadius:'14px',padding:'14px 18px',marginBottom:'20px',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:'10px',animation:'fu 0.5s ease both'}}>
-            <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
-              <span style={{fontSize:'18px'}}>👤</span>
-              <p style={{color:'var(--text2)',fontSize:'14px',margin:0}}>
-                Guest mode — 5 scans/hour. <Link to="/register" style={{color:'#fbbf24',fontWeight:'700',textDecoration:'none'}}>Create a free account</Link> for 25/day + history.
-              </p>
-            </div>
-            <Link to="/register" style={{background:'rgba(251,191,36,0.15)',border:'1px solid rgba(251,191,36,0.4)',color:'#f59e0b',padding:'8px 18px',borderRadius:'9px',fontWeight:'700',fontSize:'13px',textDecoration:'none',flexShrink:0}}>
-              Sign Up Free →
-            </Link>
-          </div>
-        )}
-
         {/* Header */}
         <div style={{textAlign:'center',marginBottom:'24px',animation:'fu 0.5s ease both'}}>
           <div style={{display:'inline-flex',alignItems:'center',gap:'8px',background:'rgba(37,99,235,0.1)',border:'1px solid rgba(37,99,235,0.25)',borderRadius:'99px',padding:'5px 16px',marginBottom:'12px'}}>
@@ -183,12 +150,13 @@ export default function Analyze() {
             <span style={{color:'#60a5fa',fontSize:'13px',fontWeight:'600'}}>AI-Powered Analysis</span>
           </div>
           <h1 style={{fontSize:'32px',fontWeight:'900',color:'var(--text)',marginBottom:'8px',letterSpacing:'-0.8px'}}>Analyze your resume</h1>
-          <p style={{color:'var(--text3)',fontSize:'15px',lineHeight:1.75}}>Upload your PDF and get detailed AI feedback in seconds. No signup needed.</p>
+          <p style={{color:'var(--text3)',fontSize:'15px',lineHeight:1.75}}>Upload your PDF and get detailed AI feedback in seconds.</p>
         </div>
 
         {/* Main grid */}
         <div className="analyze-grid">
           <div>
+            {/* 1. UPLOAD BOX */}
             <div style={{background:'var(--card-bg)',border:'1px solid var(--border)',borderRadius:'22px',padding:'22px',marginBottom:'12px',animation:'fu 0.5s ease 0.1s both'}}>
               <div {...getRootProps()} className={`dz${isDragActive?' dz-on':''}${file?' dz-ok':''}`}>
                 <input {...getInputProps()}/>
@@ -230,10 +198,24 @@ export default function Analyze() {
                   </>
                 ):'Analyze Resume →'}
               </button>
-              {loading&&<p style={{textAlign:'center',color:'var(--text4)',fontSize:'13px',marginTop:'8px'}}>Takes 10–20 seconds. The knight is reviewing...</p>}
             </div>
 
-            {/* Feature chips */}
+            {/* 2. SIGN UP BANNER (Between Upload and Features) */}
+            {!user && (
+              <div style={{background:'linear-gradient(135deg,rgba(37,99,235,0.1),rgba(124,58,237,0.07))',border:'1px solid rgba(59,130,246,0.25)',borderRadius:'14px',padding:'14px 18px',marginBottom:'20px',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:'10px',animation:'fu 0.5s ease both'}}>
+                <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
+                  <span style={{fontSize:'18px'}}>⚡</span>
+                  <p style={{color:'var(--text2)',fontSize:'14px',margin:0}}>
+                    <strong>Want more scans?</strong> <Link to="/register" style={{color:'#60a5fa',fontWeight:'700',textDecoration:'none'}}>Sign up</Link> for 25 free scans/day.
+                  </p>
+                </div>
+                <Link to="/register" style={{background:'linear-gradient(135deg,#2563eb,#7c3aed)',color:'white',padding:'6px 14px',borderRadius:'8px',fontWeight:'700',fontSize:'12px',textDecoration:'none'}}>
+                  Join Free →
+                </Link>
+              </div>
+            )}
+
+            {/* 3. FEATURE DETAILS */}
             <div style={{animation:'fu 0.5s ease 0.2s both'}}>
               <p style={{color:'var(--text4)',fontSize:'11px',fontWeight:'700',textTransform:'uppercase',letterSpacing:'0.09em',marginBottom:'10px'}}>What you'll get</p>
               <div className="feat-grid">
@@ -256,7 +238,7 @@ export default function Analyze() {
             </div>
           </div>
 
-          {/* Knight — moves above on mobile */}
+          {/* Knight Mascot (Order -1 on mobile puts it at the top) */}
           <div className="knight-col">
             <KnightMascot uploaded={!!file}/>
           </div>

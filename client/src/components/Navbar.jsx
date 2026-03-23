@@ -39,8 +39,8 @@ export default function Navbar() {
 
         {/* Nav links — center */}
         <div style={{ display:'flex', alignItems:'center', gap:'4px' }}>
-          <Link to="/analyze" className={`nav-link${pathname==='/analyze'?' nav-link-active':''}`}>Analyze</Link>
-          <Link to="/templates" className={`nav-link${pathname==='/templates'?' nav-link-active':''}`}>Templates</Link>
+         
+        
           {user && <Link to="/dashboard" className={`nav-link${pathname==='/dashboard'?' nav-link-active':''}`}>Dashboard</Link>}
         </div>
 

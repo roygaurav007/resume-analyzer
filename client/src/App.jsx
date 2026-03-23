@@ -8,7 +8,7 @@ import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import Analyze from './pages/Analyze'
 import Results from './pages/Results'
-import Templates from './pages/Templates'
+
 
 const Protected = ({ children }) => {
   const { user, loading } = useAuth()
@@ -27,7 +27,6 @@ const AppRoutes = () => (
     <Routes>
       {/* Public routes */}
       <Route path="/"          element={<Landing />} />
-      <Route path="/templates" element={<Templates />} />
       <Route path="/analyze"   element={<Analyze />} />
       <Route path="/login"     element={<Public><Login /></Public>} />
       <Route path="/register"  element={<Public><Register /></Public>} />

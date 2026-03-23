@@ -127,9 +127,7 @@ export default function Landing() {
             <Link to="/analyze" className="try-btn">
               🚀 Analyze My Resume Free
             </Link>
-            <Link to="/templates" className="sec-btn">
-              📄 Get ATS Templates
-            </Link>
+           
           </div>
         </div>
       </section>

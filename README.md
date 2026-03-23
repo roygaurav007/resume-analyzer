@@ -57,7 +57,7 @@ ResumeAI analyzes your PDF resume using **LLaMA 3.3 70B** (via Groq) and gives y
 | :---: | :---: |
 | ![Registration](screenshots/signup.png) | ![Dashboard](screenshots/dashboard.png) |
 | **Analyze Tool** | **AI Results** |
-| ![Analyze](screenshots/analyze.png) | ![Results](screenshots/results.png) |
+| ![Analyze](screenshots/Analyze.png) | ![Results](screenshots/results.png) |
 
 </div>
 <br/>
